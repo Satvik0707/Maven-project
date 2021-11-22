@@ -27,7 +27,7 @@ public class StakeETHdeposit {
   @Test
   public void Connect() throws InterruptedException {
 	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Connection.html");
+		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//StakeETHdeposit.html");
 
 		extent = new ExtentReports();
 
@@ -283,6 +283,8 @@ public class StakeETHdeposit {
 
 				driver.findElement(By.cssSelector(
 						"#root > div.sc-ksXiFW.bHLZxk > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU")).click();
+				
+				extent.flush();
 
 			}
 		}

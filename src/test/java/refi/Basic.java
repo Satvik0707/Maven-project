@@ -26,28 +26,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Basic {
 
-	ExtentReports extent;
-	ExtentTest logger;
 	ChromeDriver driver;
-
 
 	@BeforeMethod
 
 	public void Connection() throws InterruptedException {
-		
-		int i= 001;
-		
-		i++;
-		
-		//System.out.println("i = " + i);
-
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//" + i +".html");
-
-		extent = new ExtentReports();
-
-		extent.attachReporter(reporter);
-
-		logger = extent.createTest("LoginTest");
 
 		WebDriverManager.chromedriver().setup();
 
@@ -171,7 +154,7 @@ public class Basic {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
+
 			driver.findElement(By.xpath("//*[text()='Connect']")).click();
 
 			String phandle2 = driver.getWindowHandle();
@@ -215,7 +198,7 @@ public class Basic {
 		String web = Address.getAttribute("innerText");
 
 		System.out.println(web);
-		
+
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
 
 		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
@@ -225,7 +208,6 @@ public class Basic {
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
 
-		extent.flush();
 		driver.quit();
 
 	}

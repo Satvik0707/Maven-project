@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="onetoone.TRequestwithdraw">
+      <class name="onetoone.StakeMaxamount">
         <methods>
           <include name="Connect"/>
         </methods>
-      </class> <!-- onetoone.TRequestwithdraw -->
+      </class> <!-- onetoone.StakeMaxamount -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

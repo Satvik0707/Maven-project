@@ -27,7 +27,7 @@ public class DepositColletral {
   @Test
   public void Connect() throws InterruptedException {
 	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Connection.html");
+		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//DepositColletral.html");
 
 		extent = new ExtentReports();
 
@@ -279,6 +279,8 @@ public class DepositColletral {
 					System.out.println("Account balance" + ttt2);
 
 					driver.switchTo().window(newTb.get(0));
+					
+					extent.flush();
 
 				}
 		

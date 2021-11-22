@@ -26,7 +26,7 @@ public class EviewEtherScan {
   @Test
   public void Connect() throws InterruptedException {
 	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Connection.html");
+		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//EviewEtherScan.html");
 
 		extent = new ExtentReports();
 
@@ -213,6 +213,8 @@ public class EviewEtherScan {
 		driver.findElement(By.xpath("//*[text()='View on Etherscan']")).click();
 
 		driver.findElement(By.xpath("//*[text()='View on Ethersca']"));
+		
+		extent.flush();
 
 
 	}

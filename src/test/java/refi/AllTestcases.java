@@ -702,5 +702,35 @@ public class AllTestcases extends Basic {
 		
 		
 	}
+	
+	@Test (enabled = true , priority = 13)
+	
+		public void borrowlimit ()
+		{
+			
+		List <WebElement > loan = driver.findElements(By.cssSelector(""));
+		
+		for (WebElement loa : loan)
+		{
+			String MM= loa.getText();
+			
+			String MM2= MM;
+			
+			String MM3= MM2.replace("$", "");
+			
+			double d= Double.parseDouble(MM3);
+			
+			double d1= 100.0;
+			
+			double d2= d * d1 ;
+			
+			
+			
+			
+		}
+		
+		
+		}
+	}
 
-}
+

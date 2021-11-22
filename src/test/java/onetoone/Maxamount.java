@@ -2,6 +2,7 @@ package onetoone;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -23,10 +24,10 @@ public class Maxamount {
 	ExtentTest logger;
 	ChromeDriver driver;
 
-  @Test
-  public void Connect() throws InterruptedException {
-	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Connection.html");
+	@Test
+	public void Connect() throws InterruptedException {
+
+		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Maxamount.html");
 
 		extent = new ExtentReports();
 
@@ -156,7 +157,7 @@ public class Maxamount {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
+
 			driver.findElement(By.xpath("//*[text()='Connect']")).click();
 
 			String phandle2 = driver.getWindowHandle();
@@ -200,10 +201,60 @@ public class Maxamount {
 		String web = Address.getAttribute("innerText");
 
 		System.out.println(web);
-		
+
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
 
 		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
 
+		//driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
+
+		driver.switchTo().window(newTb.get(0));
+
+		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
+
+		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
+
+		driver.switchTo().window(newTb.get(1));
+
+		driver.navigate().refresh();
+
+		Thread.sleep(2000);
+
+		List<WebElement> Avail = driver.findElements(By.cssSelector(".iMtgNb.sc-jUEmfL > p > span"));
+
+		for (WebElement ava : Avail) {
+			String bal = ava.getText();
+
+			System.out.println("Availabe balance=" + bal);
+
+			driver.findElement(By.xpath("//*[@class='sc-eLgNKc hNwhnF']")).click();
+
+			driver.findElement(By.cssSelector(".NRxIC.sc-dtwnrN")).click();
+
+			driver.switchTo().window(newTb.get(0));
+
+			driver.navigate().refresh();
+
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#popover-content > div > div > section > header > div > button")));
+			driver.findElement(By.cssSelector("#popover-content > div > div > section > header > div > button"))
+					.click();
+			
+			driver.navigate().refresh();
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Reject']")));
+			driver.findElement(By.xpath("//*[text()='Reject']")).click();
+			
+			
+			driver.switchTo().window(newTb.get(1));
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Failure']")));
+			
+			driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU")).click();
+			
+			
+			extent.flush();
+
+		}
+
 	}
-  }
+}
