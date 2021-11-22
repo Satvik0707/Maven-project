@@ -200,7 +200,7 @@ public class AllTestcases extends Basic {
 
 				System.out.println("Your are trying to add = 1 ETH ");
 
-				System.out.println("Current ETH amount in your account = " + D1);
+				System.out.println("Current ETH Amount in your account = " + D1);
 
 			}
 
