@@ -6,35 +6,22 @@ import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class DepositColletral {
-	ExtentReports extent;
-	ExtentTest logger;
+public class Gettingyieldvalue {
 	ChromeDriver driver;
 
-  @Test
-  public void depositcolletral() throws InterruptedException {
-	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//DepositColletral.html");
-
-		extent = new ExtentReports();
-
-		extent.attachReporter(reporter);
-
-		logger = extent.createTest("LoginTest");
-
+	@Test
+	public void Yieldvalue() throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
 
 		ChromeOptions option = new ChromeOptions();
@@ -157,7 +144,7 @@ public class DepositColletral {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
+
 			driver.findElement(By.xpath("//*[text()='Connect']")).click();
 
 			String phandle2 = driver.getWindowHandle();
@@ -201,97 +188,60 @@ public class DepositColletral {
 		String web = Address.getAttribute("innerText");
 
 		System.out.println(web);
-		
+
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
 
 		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
 
-		driver.switchTo().window(newTb.get(0));
+		driver.get("https://wissg5tmbg.eu-west-1.awsapprunner.com/api/info/getYeildApy");
 
-		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
+		List<WebElement> compound = driver.findElements(By.cssSelector("body > pre "));
 
-		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
+		for (WebElement com : compound) {
+			String ETh = com.getText();
 
-		driver.switchTo().window(newTb.get(1));
+			//System.out.println(ETh);
 
-		driver.navigate().refresh();
+			String yield = ETh;
 
-		Thread.sleep(1000);
+			String Yi = yield.substring(57, 61);
 
-		List<WebElement> Balance1 = driver.findElements(By.cssSelector(".iMtgNb.sc-jUEmfL > p > span"));
+			System.out.println("Yield value =" + Yi);
 
-		for (WebElement ava : Balance1) {
+			driver.switchTo().window(newTb.get(0));
 
-			String Et = ava.getText();
+			driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
 
-			String S1 = Et;
+			driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
 
-			String S2 = S1.replace("ETH", "");
+			driver.switchTo().window(newTb.get(1));
 
-			double D1 = Double.parseDouble(S2);
+			driver.get("https://rapid:headphones_mug@staging.d302m820cdpigj.amplifyapp.com/");
 
-			System.out.println("Available ETH = ");
+			Thread.sleep(2000);
 
-			if (D1 > 0.1) {
+			Actions action = new Actions(driver);
 
-				driver.findElement(By.id("ethAmount")).sendKeys("0.1");
+			WebElement element = driver.findElement(By.cssSelector(".fXLcco.sc-hjWSTT"));
 
-				driver.findElement(By.xpath("//*[text()='deposit']")).click();
+			action.moveToElement(element).click().perform();
 
-				Thread.sleep(3000);
+			Thread.sleep(5000);
+			List<WebElement> ratio111 = driver.findElements(By.xpath("//*[@class='sc-iGculD jnHFpF'][3]"));
 
-				driver.switchTo().window(newTb.get(0));
+			for (WebElement rati12 : ratio111) {
+				String rat12 = rati12.getAttribute("innerText");
 
-				driver.navigate().refresh();
+				System.out.println(rat12);
 
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Confirm']")));
+				String y = rat12;
 
-				driver.findElement(By.xpath("//*[text()='Confirm']")).click();
+				int MM = y.indexOf("Y");
 
-				wait.until(ExpectedConditions.visibilityOfElementLocated(
-						By.cssSelector("#popover-content > div > div > section > header > div > button")));
-
-				driver.findElement(By.cssSelector("#popover-content > div > div > section > header > div > button"))
-						.click();
-
-				Thread.sleep(3000);
-
-				driver.switchTo().window(newTb.get(1));
-
-				try {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
-
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
-
-				} catch (Exception E) {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
-
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
-
-					WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
-
-					String ttt2 = Balance2.getAttribute("innerText");
-
-					System.out.println("Account balance" + ttt2);
-
-					driver.switchTo().window(newTb.get(0));
-					
-					extent.flush();
-
-				}
-		
-				} 
-				else {
-
-				System.out.println("Your are trying to add = 1 ETH ");
-
-				System.out.println("Current ETH amount in your account = " + D1);
+				System.out.println("=====" + MM);
 
 			}
 		}
+
 	}
-  }
+}

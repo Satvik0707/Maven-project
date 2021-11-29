@@ -22,7 +22,7 @@ public class AllTestcases extends Basic {
 		System.out.println("Connection Done");
 	}
 
-	@Test(enabled = true, priority = 2)
+	@Test(enabled = false, priority = 2)
 
 	public void Disconnection() {
 		WebDriverWait wait = new WebDriverWait(driver, 60);
@@ -701,33 +701,8 @@ public class AllTestcases extends Basic {
 		driver.findElement(By.xpath("//*[text()='Coinbase']")).click();
 		
 		
-	}
 	
-	@Test (enabled = true , priority = 13)
 	
-		public void borrowlimit ()
-		{
-			
-		List <WebElement > loan = driver.findElements(By.cssSelector(""));
-		
-		for (WebElement loa : loan)
-		{
-			String MM= loa.getText();
-			
-			String MM2= MM;
-			
-			String MM3= MM2.replace("$", "");
-			
-			double d= Double.parseDouble(MM3);
-			
-			double d1= 100.0;
-			
-			double d2= d * d1 ;
-			
-			
-			
-			
-		}
 		
 		
 		}

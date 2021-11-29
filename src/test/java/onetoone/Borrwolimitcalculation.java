@@ -1,40 +1,29 @@
 package onetoone;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class DepositColletral {
-	ExtentReports extent;
-	ExtentTest logger;
+public class Borrwolimitcalculation {
 	ChromeDriver driver;
 
-  @Test
-  public void depositcolletral() throws InterruptedException {
-	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//DepositColletral.html");
-
-		extent = new ExtentReports();
-
-		extent.attachReporter(reporter);
-
-		logger = extent.createTest("LoginTest");
-
+	@Test
+	public void Yieldvalue() throws InterruptedException {
+		
 		WebDriverManager.chromedriver().setup();
 
 		ChromeOptions option = new ChromeOptions();
@@ -157,7 +146,7 @@ public class DepositColletral {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
+
 			driver.findElement(By.xpath("//*[text()='Connect']")).click();
 
 			String phandle2 = driver.getWindowHandle();
@@ -201,97 +190,102 @@ public class DepositColletral {
 		String web = Address.getAttribute("innerText");
 
 		System.out.println(web);
-		
+
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
 
 		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
 
-		driver.switchTo().window(newTb.get(0));
+			driver.switchTo().window(newTb.get(0));
 
-		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
+			driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
 
-		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
+			driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
 
-		driver.switchTo().window(newTb.get(1));
+			driver.switchTo().window(newTb.get(1));
 
-		driver.navigate().refresh();
+			driver.get("https://rapid:headphones_mug@staging.d302m820cdpigj.amplifyapp.com/");
 
-		Thread.sleep(1000);
+			Thread.sleep(2000);
 
-		List<WebElement> Balance1 = driver.findElements(By.cssSelector(".iMtgNb.sc-jUEmfL > p > span"));
+			Actions action = new Actions(driver);
 
-		for (WebElement ava : Balance1) {
+			List<WebElement> ratio111 = driver.findElements(By.cssSelector(".iLFemt.sc-eJMPIT > ul > li:nth-of-type(1) > span"));
 
-			String Et = ava.getText();
+			for (WebElement rati12 : ratio111) {
+				
+				String rat12 = rati12.getText();
 
-			String S1 = Et;
-
-			String S2 = S1.replace("ETH", "");
-
-			double D1 = Double.parseDouble(S2);
-
-			System.out.println("Available ETH = ");
-
-			if (D1 > 0.1) {
-
-				driver.findElement(By.id("ethAmount")).sendKeys("0.1");
-
-				driver.findElement(By.xpath("//*[text()='deposit']")).click();
-
-				Thread.sleep(3000);
-
-				driver.switchTo().window(newTb.get(0));
-
-				driver.navigate().refresh();
-
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Confirm']")));
-
-				driver.findElement(By.xpath("//*[text()='Confirm']")).click();
-
-				wait.until(ExpectedConditions.visibilityOfElementLocated(
-						By.cssSelector("#popover-content > div > div > section > header > div > button")));
-
-				driver.findElement(By.cssSelector("#popover-content > div > div > section > header > div > button"))
-						.click();
-
-				Thread.sleep(3000);
-
-				driver.switchTo().window(newTb.get(1));
-
-				try {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
-
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
-
-				} catch (Exception E) {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
-
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
-
-					WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
-
-					String ttt2 = Balance2.getAttribute("innerText");
-
-					System.out.println("Account balance" + ttt2);
-
-					driver.switchTo().window(newTb.get(0));
+				System.out.println(rat12);
+				
+				double d= Double.parseDouble(rat12);
+				
+				System.out.println("Borrow lmit amount ="+d);
+				
+			//	Loan value
+				
+				List<WebElement> Loan = driver.findElements(By.cssSelector(".iNQmrE.sc-dUrmIn > p"));
+				
+				for (WebElement Loa : Loan) {
 					
-					extent.flush();
+					String LOANAMOUNT = Loa.getText();
 
+					System.out.println(LOANAMOUNT);
+					
+					
+					String MM= LOANAMOUNT;
+					
+					String MM2=MM.replace("$", "");
+					
+					double d1= Double.parseDouble(MM2);
+					
+					System.out.println("Loan amount ="+d1);
+					
+					//Borrow limit = (loan / (loan + borrow limit amount)) * 100
+					
+					double d3= d+d1;
+					double d4= d1 /d3 ;
+					
+					double d5 = d4*100;
+					
+					System.out.println("Borrow limit = "+ d5);
+					
+					double value = d5;
+					value = Double.parseDouble(new DecimalFormat("##.##").format(value));
+					
+					System.out.println("Borrow limit ="+value);
+					
+					List<WebElement> Loan1 = driver.findElements(By.cssSelector(".Fwxf.sc-FyeoB > p"));
+					
+					for (WebElement Limit : Loan1 )
+					{
+						String Borrow = Limit.getText();
+						
+						String BLoan= Borrow;
+						
+						String BL= BLoan.replace("%", "");
+						
+						double value2=Double.parseDouble(BL) ;
+						
+						if (value==value2)
+						{
+							System.out.println("Test case pass");
+						}
+						else 
+						{
+							System.out.println("Test case Fail");
+						}
+					}
+					
+					
 				}
-		
-				} 
-				else {
 
-				System.out.println("Your are trying to add = 1 ETH ");
-
-				System.out.println("Current ETH amount in your account = " + D1);
+//				String y = rat12;
+//
+//				int MM = y.indexOf("Y");
+//
+//				System.out.println("=====" + MM);
 
 			}
 		}
+
 	}
-  }

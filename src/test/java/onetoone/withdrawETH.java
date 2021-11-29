@@ -239,7 +239,7 @@ public class withdrawETH {
 
 		driver.switchTo().window(newTb.get(0));
 
-		Thread.sleep(2000);
+		// Thread.sleep(2000);
 
 		driver.navigate().refresh();
 
@@ -259,32 +259,22 @@ public class withdrawETH {
 
 			driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU")).click();
 
-			driver.navigate().refresh();
-
-			WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
-
-			String ttt2 = Balance2.getAttribute("innerText");
-
-			System.out.println("Balance == " + ttt2);
-
-			driver.switchTo().window(newTb.get(0));
-
 		} catch (Exception E) {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
 
 			driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU")).click();
-
-			driver.navigate().refresh();
-
-			WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
-
-			String ttt2 = Balance2.getAttribute("innerText");
-
-			System.out.println("Balance " + ttt2);
-			
-			extent.flush();
-
 		}
 
+		driver.navigate().refresh();
+
+		WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
+
+		String ttt2 = Balance2.getAttribute("innerText");
+
+		System.out.println("Balance " + ttt2);
+
+		extent.flush();
+
 	}
+
 }

@@ -115,7 +115,7 @@ public class Basic {
 
 		driver.manage().window().maximize();
 
-		driver.findElement(By.xpath("//*[text()='Connect']")).click();
+		driver.findElement(By.xpath("//*[text()='Connect Wallet']")).click();
 
 		String phandle = driver.getWindowHandle();
 
@@ -145,6 +145,7 @@ public class Basic {
 
 		{
 			driver.findElement(By.xpath("//*[text()='Next']")).click();
+			
 			driver.findElement(By.xpath("//*[@class='button btn-primary page-container__footer-button']")).click();
 
 		} catch (Exception E) {

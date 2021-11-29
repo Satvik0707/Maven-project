@@ -1,9 +1,11 @@
-package onetoone;
+package NewUI;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -19,15 +22,16 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class DepositColletral {
+public class Depositcolletral {
+
 	ExtentReports extent;
 	ExtentTest logger;
 	ChromeDriver driver;
 
-  @Test
-  public void depositcolletral() throws InterruptedException {
-	 
-		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//DepositColletral.html");
+	@Test
+	public void f() {
+
+		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Buttonschecking.html");
 
 		extent = new ExtentReports();
 
@@ -46,6 +50,8 @@ public class DepositColletral {
 		driver.manage().deleteAllCookies();
 
 		driver.get("https://rapid:headphones_mug@staging.d302m820cdpigj.amplifyapp.com/");
+
+		driver.manage().window().maximize();
 
 		ArrayList<String> newTb = new ArrayList<String>(driver.getWindowHandles());
 
@@ -114,21 +120,27 @@ public class DepositColletral {
 
 		driver.switchTo().window(newTb.get(1));
 
-		Thread.sleep(3000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Connect Wallet']")));
 
-		driver.manage().window().maximize();
-
-		driver.findElement(By.xpath("//*[text()='Connect']")).click();
+		driver.findElement(By.xpath("//*[text()='Connect Wallet']")).click();
 
 		String phandle = driver.getWindowHandle();
 
 		driver.findElement(By.xpath("//*[@type='checkbox']")).click();
 
-		Thread.sleep(2000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Metamask']")));
 
 		driver.findElement(By.xpath("//*[text()='Metamask']")).click();
 
-		Thread.sleep(4000);
+		driver.switchTo().window(newTb.get(0));
+
+		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
+
+		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
+
+		driver.findElement(By.xpath("//*[@class='currency-display-component__text']"));
+
+		driver.switchTo().window(newTb.get(1));
 
 		Set<String> Handles = driver.getWindowHandles();
 
@@ -157,20 +169,21 @@ public class DepositColletral {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
-			driver.findElement(By.xpath("//*[text()='Connect']")).click();
+
+			// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Connect
+			// Wallet']")));
+
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Connect Wallet']")));
+
+			driver.findElement(By.xpath("//*[text()='Connect Wallet']")).click();
 
 			String phandle2 = driver.getWindowHandle();
 
 			driver.findElement(By.xpath("//*[@type='checkbox']")).click();
 
-			//
-
-			Thread.sleep(2000);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Metamask']")));
 
 			driver.findElement(By.xpath("//*[text()='Metamask']")).click();
-
-			Thread.sleep(4000);
 
 			Set<String> Handles2 = driver.getWindowHandles();
 
@@ -181,6 +194,7 @@ public class DepositColletral {
 				if (!handle2.equals(phandle)) {
 
 					driver.switchTo().window(handle2);
+
 				}
 			}
 
@@ -194,104 +208,134 @@ public class DepositColletral {
 
 		driver.switchTo().window(newTb.get(1));
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='sc-fubCzh imfFrD']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+				"#root > div.sc-bdfBQB.gNNzpt > div:nth-child(1) > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu")));
 
-		WebElement Address = driver.findElement(By.xpath("//*[@class='sc-fubCzh imfFrD']"));
-
-		String web = Address.getAttribute("innerText");
-
-		System.out.println(web);
-		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
-
-		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
-
-		driver.switchTo().window(newTb.get(0));
-
-		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
-
-		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
+		driver.findElement(By.cssSelector(
+				"#root > div.sc-bdfBQB.gNNzpt > div:nth-child(1) > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu"))
+				.click();
 
 		driver.switchTo().window(newTb.get(1));
 
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@alt='wallet']")));
+
+		// Getting current balance
+
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.cssSelector(".sc-gTgzoy div:nth-of-type(1) .sc-dkaWRx")));
+
+		List<WebElement> ETH = driver.findElements(By.cssSelector(".sc-gTgzoy div:nth-of-type(1) .sc-dkaWRx"));
+
 		driver.navigate().refresh();
 
-		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@class='sc-fubCzh cjxupP']")).click();
 
-		List<WebElement> Balance1 = driver.findElements(By.cssSelector(".iMtgNb.sc-jUEmfL > p > span"));
+		driver.findElement(By.cssSelector(
+				"#root > div.sc-bdfBQB.gNNzpt > div:nth-child(1) > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu"))
+				.click();
+		// Getting Metamask balance
 
-		for (WebElement ava : Balance1) {
+		driver.switchTo().window(newTb.get(0));
 
-			String Et = ava.getText();
+		List<WebElement> ETH22 = driver.findElements(By.xpath("//*[@class='currency-display-component__text']"));
 
-			String S1 = Et;
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
-			String S2 = S1.replace("ETH", "");
+		for (WebElement ET : ETH22) {
 
-			double D1 = Double.parseDouble(S2);
+			String ETHbalance = ET.getText();
 
-			System.out.println("Available ETH = ");
+			System.out.println("Before transaction Balance = " + ETHbalance);
 
-			if (D1 > 0.1) {
+			String ETHbalance1 = ETHbalance;
 
-				driver.findElement(By.id("ethAmount")).sendKeys("0.1");
+			// String SS = ETHbalance1.replace("ETH", "");
 
-				driver.findElement(By.xpath("//*[text()='deposit']")).click();
+			double d = Double.parseDouble(ETHbalance1);
 
-				Thread.sleep(3000);
+			double d1 = 5.00;
 
-				driver.switchTo().window(newTb.get(0));
+			double d2 = d / d1;
 
-				driver.navigate().refresh();
+			String s = String.valueOf(d2);
 
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Confirm']")));
+			System.out.println("=======" + s);
 
-				driver.findElement(By.xpath("//*[text()='Confirm']")).click();
+			driver.switchTo().window(newTb.get(1));
 
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ethAmount")));
+
+			driver.findElement(By.id("ethAmount")).sendKeys(s);
+
+			WebElement proceed = driver.findElement(By.xpath("//*[text()='Proceed']"));
+
+			proceed.click();
+
+			// Thread.sleep(3000);
+
+			driver.switchTo().window(newTb.get(0));
+
+			driver.navigate().refresh();
+
+			try {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(
 						By.cssSelector("#popover-content > div > div > section > header > div > button")));
-
 				driver.findElement(By.cssSelector("#popover-content > div > div > section > header > div > button"))
 						.click();
 
-				Thread.sleep(3000);
+			} catch (Exception E) {
+				System.out.println("Else condition");
+			}
 
-				driver.switchTo().window(newTb.get(1));
+			driver.navigate().refresh();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Confirm']")));
 
-				try {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
+			driver.findElement(By.xpath("//*[text()='Confirm']")).click();
 
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(
+					By.cssSelector("#popover-content > div > div > section > header > div > button")));
 
-				} catch (Exception E) {
-					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
+			driver.findElement(By.cssSelector("#popover-content > div > div > section > header > div > button"))
+					.click();
 
-					driver.findElement(By.cssSelector("#root > div.sc-dIUeWJ.bsfnEV > div > div.sc-kfzBvY.dHohrU"))
-							.click();
+			// Thread.sleep(3000);
 
-					WebElement Balance2 = driver.findElement(By.xpath("//*[@class='sc-jUEmfL iMtgNb']"));
+			driver.switchTo().window(newTb.get(1));
 
-					String ttt2 = Balance2.getAttribute("innerText");
+			try {
+				wait.until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
 
-					System.out.println("Account balance" + ttt2);
+				driver.findElement(By.cssSelector(
+						"#root > div.sc-bdfBQB.gNNzpt > div.sc-jgHCSr.gDRvjF > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu"))
+						.click();
 
-					driver.switchTo().window(newTb.get(0));
-					
-					extent.flush();
+			} catch (Exception E) {
+				wait.until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath("//*[text()='Transaction Successful']")));
 
-				}
-		
-				} 
-				else {
+				driver.findElement(By.cssSelector(
+						"#root > div.sc-bdfBQB.gNNzpt > div.sc-jgHCSr.gDRvjF > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu"))
+						.click();
+			}
 
-				System.out.println("Your are trying to add = 1 ETH ");
+			driver.navigate().refresh();
 
-				System.out.println("Current ETH amount in your account = " + D1);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@alt='wallet']")));
+			List<WebElement> ETH2 = driver.findElements(By.cssSelector(".sc-gTgzoy div:nth-of-type(1) .sc-dkaWRx"));
+
+			for (WebElement ET11 : ETH2) {
+
+				String ETHbalance111 = ET11.getText();
+
+				System.out.println("After transaction balance  = " + ETHbalance111);
+
+				extent.flush();
 
 			}
+
 		}
 	}
-  }
+}

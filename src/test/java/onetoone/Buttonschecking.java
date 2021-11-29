@@ -2,7 +2,9 @@ package onetoone;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,9 +26,9 @@ public class Buttonschecking {
 	ExtentTest logger;
 	ChromeDriver driver;
 
-  @Test
-  public void Connect() throws InterruptedException {
-	 
+	@Test
+	public void Connect() throws InterruptedException {
+
 		ExtentHtmlReporter reporter = new ExtentHtmlReporter(".//Reports//Buttonschecking.html");
 
 		extent = new ExtentReports();
@@ -118,7 +120,7 @@ public class Buttonschecking {
 
 		driver.manage().window().maximize();
 
-		driver.findElement(By.xpath("//*[text()='Connect']")).click();
+		driver.findElement(By.xpath("//*[text()='Connect Wallet']")).click();
 
 		String phandle = driver.getWindowHandle();
 
@@ -157,8 +159,8 @@ public class Buttonschecking {
 			driver.switchTo().window(newTb.get(1));
 
 			driver.navigate().refresh();
-			
-			driver.findElement(By.xpath("//*[text()='Connect']")).click();
+
+			driver.findElement(By.xpath("//*[text()='Connect Wallet']")).click();
 
 			String phandle2 = driver.getWindowHandle();
 
@@ -194,84 +196,86 @@ public class Buttonschecking {
 
 		driver.switchTo().window(newTb.get(1));
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='sc-fubCzh imfFrD']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+				"#root > div.sc-bdfBQB.gNNzpt > div:nth-child(1) > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu")));
 
-		WebElement Address = driver.findElement(By.xpath("//*[@class='sc-fubCzh imfFrD']"));
+		driver.findElement(By.cssSelector(
+				"#root > div.sc-bdfBQB.gNNzpt > div:nth-child(1) > div.sc-lmoMya.hDDeZq > div > div.sc-ezredP.htRjFu"))
+				.click();
 
-		String web = Address.getAttribute("innerText");
+		driver.switchTo().window(newTb.get(0));
 
-		System.out.println(web);
-		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")));
+		driver.findElement(By.xpath("//*[text()='Ethereum Mainnet']")).click();
 
-		driver.findElement(By.cssSelector(".bsfnEV.sc-dIUeWJ img[alt='close']")).click();
-		
-		WebElement Dashboard = driver.findElement(By.xpath("//*[@class='sc-eCstlR iFXaBz'][1]"));
+		driver.findElement(By.xpath("//*[text()='Ropsten Test Network']")).click();
 
-		String Boardtext = Dashboard.getAttribute("innerText");
+		driver.switchTo().window(newTb.get(1));
 
-		String text = "DASHBOARD";
+		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
-		System.out.println("Dashboard text = " + Boardtext.equals(text));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@alt='wallet']")));
+
+		WebElement Stake = driver.findElement(By.xpath("//*[text()='Stake']"));
+
+		highLighterMethod(driver, Stake);
+
+		Stake.click();
+
+		WebElement Dashboard = driver.findElement(By.xpath("//*[text()='Dashboard']"));
 
 		highLighterMethod(driver, Dashboard);
+
+		Dashboard.click();
+
+		// Getting current balance
+
+		List<WebElement> ETH = driver.findElements(By.cssSelector(".sc-gTgzoy div:nth-of-type(1) .sc-dkaWRx"));
+		
+		WebElement ETH1 = driver.findElement(By.cssSelector(".sc-gTgzoy div:nth-of-type(1) .sc-dkaWRx"));
+				
+		highLighterMethod(driver, ETH1);
+		
+		for (WebElement ET : ETH) {
+
+			String ETHbalance = ET.getText();
+
+			System.out.println("Balance = " + ETHbalance);
+		}
+
+		WebElement Depositborrow = driver.findElement(By.xpath("//*[text()='Deposit / Borrow']"));
+
+		highLighterMethod(driver, Depositborrow);
+
+		WebElement proceed = driver.findElement(By.xpath("//*[text()='Proceed']"));
+
+		highLighterMethod(driver, proceed);
 
 		WebElement repaywithdraw = driver.findElement(By.xpath("//*[text()='Repay / Withdraw']"));
 
 		highLighterMethod(driver, repaywithdraw);
 
-		repaywithdraw.click();
+		WebElement proceed1 = driver.findElement(By.xpath("//*[text()='Proceed']"));
 
-		WebElement repaywithdraw2 = driver.findElement(By.xpath("//*[text()='repay & withdraw']"));
+		highLighterMethod(driver, proceed1);
 
-		String repay = repaywithdraw2.getAttribute("innerText");
+		WebElement refilogo = driver.findElement(By.cssSelector("img[alt='refi logo']"));
 
-		String draw = "REPAY & WITHDRAW";
+		highLighterMethod(driver, refilogo);
 
-		System.out.println("repay & withdraw=" + repay.equals(draw));
+		refilogo.click();
 
-		highLighterMethod(driver, repaywithdraw2);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".fSddiL.sc-cHjwLt")));
 
-		repaywithdraw2.click();
-
-		WebElement Depositborrow = driver.findElement(By.xpath("//*[text()='Deposit / Borrow']"));
-
-		String Deposit = Depositborrow.getAttribute("innerText");
-
-		String borrow = "DEPOSIT / BORROW";
-
-		System.out.println("Deposit / Borrow =" + Deposit.equals(borrow));
-
-		highLighterMethod(driver, Depositborrow);
-
-		Depositborrow.click();
-
-		WebElement proceed = driver.findElement(By.xpath("//*[text()='proceed']"));
-
-		String procedd = proceed.getAttribute("innerText");
-
-		String pro = "PROCEED";
-
-		System.out.println("Proceed text=" + procedd.equals(pro));
-
-		highLighterMethod(driver, proceed);
-
-		WebElement logo = driver.findElement(By.xpath("//*[@class='sc-dlfnuX kwZAAN']"));
-
-		highLighterMethod(driver, logo);
-
-		logo.click();
-		
-		extent.flush();
-  }
-		
-		private void highLighterMethod(ChromeDriver driver, WebElement element) {
-
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-
-			js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
-
-		}
+		driver.findElement(By.cssSelector(".fSddiL.sc-cHjwLt"));
 
 	}
-  
+
+	private void highLighterMethod(ChromeDriver driver, WebElement element) {
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+
+	}
+
+}
